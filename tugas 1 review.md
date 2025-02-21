@@ -1,4 +1,4 @@
-<center>
+<div align="center">
 
 # LAPORAN PRAKTIKUM
 
@@ -20,7 +20,7 @@ NRP: 3123600025
 **DEPARTEMEN TEKNIK INFORMATIKA DAN KOMPUTER**  
 **POLITEKNIK ELEKTRONIKA NEGERI SURABAYA**  
 **2024-2025**  
-</center>
+</div>
 
 ---
 
