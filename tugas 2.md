@@ -149,14 +149,20 @@ Perintah ini memberikan informasi tentang berbagai atribut penting dari proses y
   ![penjelasan](media/image16.png)  
 
 - **ps lax** adalah variasi lain yang memberikan informasi lebih teknis mengenai proses, tetapi sedikit lebih cepat dibandingkan dengan ps aux karena tidak perlu menyelesaikan nama pengguna atau grup.
-  ![contoh ps lax](media/image17.png) 
+  ![contoh ps lax](media/image17.png)
+
 <br>
+
 - ***grep*** dapat digunakan untuk memfilter output dari perintah ps agar mencari proses tertentu. Contoh untuk mencari proses yang terkait dengan Bash:
   ![contoh grep](media/image18.png)
+
 <br>
+
 - ***pgrep*** adalah cara lain untuk mencari PID dari sebuah proses berdasarkan nama:
   ![contoh pgrep](media/image19.png)
+  
 <br>
+
 - ***pidof*** juga dapat digunakan untuk menemukan PID berdasarkan jalur eksekusi aplikasi:
   ![contoh pidof](media/image20.png)
 
