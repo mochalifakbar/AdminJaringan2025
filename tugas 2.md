@@ -19,7 +19,7 @@ NRP: 3123600025
 
 **DEPARTEMEN TEKNIK INFORMATIKA DAN KOMPUTER**  
 **POLITEKNIK ELEKTRONIKA NEGERI SURABAYA**  
-**2024-2025**  
+**2025**  
 </div>
 
 ---
@@ -150,13 +150,13 @@ Perintah ini memberikan informasi tentang berbagai atribut penting dari proses y
 
 - **ps lax** adalah variasi lain yang memberikan informasi lebih teknis mengenai proses, tetapi sedikit lebih cepat dibandingkan dengan ps aux karena tidak perlu menyelesaikan nama pengguna atau grup.
   ![contoh ps lax](media/image17.png) 
-
+<br>
 - ***grep*** dapat digunakan untuk memfilter output dari perintah ps agar mencari proses tertentu. Contoh untuk mencari proses yang terkait dengan Bash:
   ![contoh grep](media/image18.png)
-
+<br>
 - ***pgrep*** adalah cara lain untuk mencari PID dari sebuah proses berdasarkan nama:
   ![contoh pgrep](media/image19.png)
-
+<br>
 - ***pidof*** juga dapat digunakan untuk menemukan PID berdasarkan jalur eksekusi aplikasi:
   ![contoh pidof](media/image20.png)
 
@@ -231,7 +231,7 @@ Versi Linux dari ps dan top membaca informasi status proses mereka dari direktor
 
 Meskipun namanya /proc, ini berisi informasi lain selain hanya proses (statistik yang dihasilkan oleh sistem, dll).
 
-Proses-proses direpresentasikan oleh direktori di /proc, dan setiap proses memiliki direktori yang dinamai sesuai dengan PID-nya. Direktori /proc berisi berbagai file yang menyediakan informasi tentang proses, seperti command line, variabel lingkungan, deskriptor file, dan sebagainya.
+Proses-proses direpresentasikan oleh direktori di /proc, dan setiap proses memiliki direktori yang dinamai sesuai dengan PID-nya. Direktori /proc berisi berbagai file yang menyediakan informasi tentang proses, seperti command line, variabel lingkungan, deskriptor file, dan sebagainya. <br>
 ![file proc](media/image24.png)
 
 ---
@@ -390,7 +390,8 @@ contoh:
 
 #### File types
 kebanyakan implementasi filesystem didefinisikan menjadi 7 tipe file, yakni:
-![file tipe](media/image32.png)
+![file tipe](media/image32.png) 
+<br>
 **1. Regular files**
    File biasa yang berisi data dalam bentuk byte. Sistem file tidak menentukan struktur khusus untuk isi file ini, sehingga bisa berupa berbagai jenis file seperti file teks, data, program yang dapat dijalankan, atau pustaka bersama (shared libraries).
    Contoh: File teks, file biner executable, atau file konfigurasi.
@@ -475,10 +476,12 @@ Setiap direktori memiliki setidaknya dua hard link: satu untuk direktori itu sen
 Output ls untuk file perangkat (device file) akan berbeda. Contohnya:
 ![ls](media/image36.png)
 
+<br>
+
 ##### chmod: change permissions
 Perintah chmod digunakan untuk mengubah mode (izin) file dengan dua cara:
 - **Notasi Oktal:** Menggunakan angka (misalnya, chmod 755 file).
-- **Notasi Mnemonik/simbolik:** Menggunakan simbol untuk menambahkan atau menghapus izin (misalnya, chmod u+w file untuk menambahkan izin tulis untuk pemilik file).
+- **Notasi Mnemonik/simbolik:** Menggunakan simbol untuk menambahkan atau menghapus izin (misalnya, chmod u+w file untuk menambahkan izin tulis untuk pemilik file). <br>
 ![permission](media/image35.png)
 
 contoh penggunaan notasi mnemonik:
