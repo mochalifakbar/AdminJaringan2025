@@ -158,9 +158,9 @@ Perintah ini memberikan informasi tentang berbagai atribut penting dari proses y
 
 <br>
 
-- ***pgrep*** adalah cara lain untuk mencari PID dari sebuah proses berdasarkan nama:
+- ***pgrep*** adalah cara lain untuk mencari PID dari sebuah proses berdasarkan nama: <br>
   ![contoh pgrep](media/image19.png)
-  
+
 <br>
 
 - ***pidof*** juga dapat digunakan untuk menemukan PID berdasarkan jalur eksekusi aplikasi:
