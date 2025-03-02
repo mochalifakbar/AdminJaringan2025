@@ -26,7 +26,7 @@ NRP: 3123600025
 
 ## Process Control
 
-#### komponen dari Process
+### komponen dari Process
 Proses terdiri atas 2 bagian utama yakni address space dan data structures dalam kernel.
 - ***Address space:*** adalah serangkaian *memory page* yang telah ditandai oleh kernel untuk digunakan oleh proses. (*memory pages* ini adalah unit-unit yang digunakan dalam memanajemen memori, biasanya berkisar antara 4/8KiB). kawasan ini menyimpan kode, data, dan stack dari proses.
 - ***data structures within the kernel:*** menyimpan informasi tentang status proses, prioritas, dan parameter penjadwalan, dll.
@@ -57,30 +57,30 @@ Contoh penggunaan Thread(pada web server):
 
 pada contoh ini, web server adalah proses, dan setiap thread terbagi dalam konteks eksekusi di dalam proses.
 
-##### PID: process ID number
+#### PID: process ID number
 
 ***PID*** adalah **nomor unik** integer yang diberikan oleh kernel ketika dibuat. berfungsi untuk mengidentifikasi setiap proses. PID digunakan dalam berbagai pemanggilan sistem untuk merujuk pada proses tertentu(seperti mengirim sinyal ke proses).
 
 **Namespace dan PID dalam container**
 ***namespaces*** memungkinkan proses memiliki PID yang **sama** dalam konteks yang berbeda. konsep ini digunakan dalam membuat ***containers*** yaitu ***isolated environtments***/lingkungan terisolasi yang memiliki pandangan atau "view" sendiri terhadap sistem. container memungkinkan eksekusi berbagai instance aplikasi pada sistem yang sama, di mana setiap aplikasi dijalankan dalam container yang terpisah dan terisolasi satu sama lain.
 
-##### PPID (parent Process ID)
+#### PPID (parent Process ID)
 
 - setiap proses terasosiasi dengan parent process, yaitu process yang membuatnya.
 - PPID => PID dari process's parent.
 - digunakan untuk merujuk pada parent process di dalam berbagai pemanggilan sistem, seperti pengiriman sinyal ke parent process.
 
-##### The UID and EUID: user ID and effective user ID
+#### The UID and EUID: user ID and effective user ID
 
 - ***UID*** adalah ID user yang menjalankan proses.
 - ***EUID*** adalah ID user yang digunakan oleh proses untuk menentukan akses ke sumber daya. ini digunakan untuk mengontrol akses ke file, port, dan resource lainnya.
 
-#### Lifecycle of a Process
+### Lifecycle of a Process
 
 - ***Forking Proses:*** proses dimulai ketika dia membuat salinan dari dirinya sendiri menggunakan system fork call. fork membuat salinan hampir identik dari proses induk(parent process) yang akan memiliki ID Proses(PID) dan informasi akuntansi(accounting information) yang berbeda. (pada linux, prosesini menggunakan clone, yang merupakan superset dari fork yang menghandle threads dan termasuk dengan fitur tambahan lainnya. fork tetap ada di kernel untuk "Fork tetap ada di kernel untuk backward compatibility(kompatibilitas mundur), tetapi memanggil clone secara internal.)
 - ***Proses Init/systemd:*** ketika sistem booting, kernel secara otomatis membuat dan menginstall beberapa proses. yang paling terkenal adalah *init* atau *systemd*, yang merupakan proses pertama(PID 1). Proses ini menjalankan skrip *system's startup* yang mengatur bagaimana sistem operasi akan berjallan. walaupun cara pastinya sedikit berbeda antara UNIX dan Linux, semua proses selain yang dibuat oleh kernel adalah turunan dari proses ini.
 
-##### Signals
+#### Signals
 
 sinyal adalah cara untuk memberitahukan proses tentang kejadian tertentu.
 
@@ -99,7 +99,7 @@ sekitar 30 perbedaan dapat digunakan dalam berbagai konteks:
 - **HUP:** dikirim saat terminal yang mengontrol proses ditutup. biasanya digunakan untuk memberitahu proses daemon untuk start, seperti memuat konfigurasi baru.
 - **QUIT:** mirip dengan TERM, tetapi jika tidak ditangani, biasanya menghasilkan core dump, yaitu salinan memori proses untuk debugging. Beberapa program mengkonsumsi sinyal ini dan menafsirkannya untuk berarti hal lain.
 
-##### Kill: send signals
+#### Kill: send signals
 
 seperti namanya, command **kill** paling sering digunakan untuk mengakhiri proses. kill dapat mengirim sinyal apapun, tetapi defaultnya mengirim TERM. kill dapat digunakan oleh normal user untuk proses mereka sendiri atau dari root dari suatu proses. sintaknya:
 
@@ -121,7 +121,7 @@ menghentikan semua proses yang bernama "firefox".
 
 ---
 
-#### PS: Monitoring processes
+### PS: Monitoring processes
 
 **Perintah *ps* untuk Memantau proses:**
 
@@ -168,7 +168,7 @@ Perintah ini memberikan informasi tentang berbagai atribut penting dari proses y
 
 ---
 
-#### Pemantauan Interaktif dengan top
+### Pemantauan Interaktif dengan top
 
 Perintah ***top*** memberikan tampilan dinamis secara real-time dari sistem yang sedang berjalan. Perintah ini dapat menampilkan informasi ringkasan sistem serta daftar proses atau thread yang saat ini dikelola oleh kernel Linux. Jenis informasi ringkasan sistem yang ditampilkan, serta jenis, urutan, dan ukuran informasi yang ditampilkan untuk proses dapat dikonfigurasi oleh pengguna dan konfigurasi tersebut dapat dipertahankan bahkan setelah restart.
 
@@ -180,9 +180,9 @@ Terdapat juga perintah ***htop***, yang merupakan penampil proses interaktif unt
 
 ---
 
-#### Nice dan renice: mengubah prioritas dari process
+### Nice dan renice: mengubah prioritas dari process
 
-##### pengertian
+#### pengertian
 niceness adalah sebuah nilai numerik yang digunakan oleh kernel untuk memberikan **prioritas** kepada sebuah proses yang berjalan. nilai ini mengindikasikan bagaimana kernel harus memperlakukan proses tersebut dalam pembagian waktu CPU dengan proses lain.
 - **Niceness tinggi (nilai besar, misalnya +10 hingga +19):** artinya proses tersebut memiliki **prioritas rendah**. Dengan kata lain, proses ini akan mendapatkan lebih sedikit waktu CPU dibandingkan proses dengan prioritas tinggi. Proses ini "lebih baik" dalam hal memberi kesempatan bagi proses lain untuk mendapatkan CPU.
 - **Niceness rendah atau negatif (misalnya -20 hingga 0):** artinya proses tersebut memiliki **prioritas tinggi**. Proses ini akan mendapat lebih banyak waktu CPU dibandingkan dengan proses lainnya, karena dianggap lebih penting.
@@ -195,7 +195,7 @@ niceness adalah sebuah nilai numerik yang digunakan oleh kernel untuk memberikan
 - Jika ingin menjalankan sebuah task yang memerlukan banyak CPU (misalnya komputasi berat), dan ingin proses tersebut berjalan di background tanpa mempengaruhi kinerja proses lain, kita bisa memberi niceness tinggi.
 - Sebaliknya, jika ingin menjalankan sebuah proses yang sangat penting (misalnya server web atau aplikasi penting), kita bisa memberi niceness rendah untuk memastikan proses tersebut mendapat prioritas tinggi dalam penggunaan CPU.
 
-##### perintah **nice**:
+#### perintah **nice**:
 digunakan untuk memulai sebuah proses dengan nilai niceness tertentu, yang mengatur prioritas proses saat dimulai.
 
 > sintaks: nice -n nice_val [command]
@@ -207,7 +207,7 @@ contoh:
 ![contoh nice](media/image22.png)
 *perintah ini akan menjalankan ps aux dengan priority paling rendah.*
 
-##### perintah **renice**:
+#### perintah **renice**:
 digunakan untuk mengubah nilai niceness dari proses yang sedang berjalan.
 
 sintaks:
@@ -221,7 +221,7 @@ contoh:
 ![contoh nice](media/image23.png)
 *perintah ini akan mengubah top menjadi priority yang paling rendah.*
 
-##### priority value
+#### priority value
 priority value/Nilai prioritas adalah prioritas aktual dari proses yang digunakan oleh kernel Linux untuk menjadwalkan sebuah tugas. Di sistem Linux, nilai prioritas berkisar antara 0 hingga 139, di mana 0 hingga 99 untuk real-time dan 100 hingga 139 untuk pengguna.
 
 Hubungan antara value nice dan prioritas adalah sebagai berikut:
@@ -232,7 +232,7 @@ Nilai nice default adalah 0. Semakin rendah nilai nice, semakin tinggi prioritas
 
 ---
 
-#### The /proc filesystem
+### The /proc filesystem
 Versi Linux dari ps dan top membaca informasi status proses mereka dari direktori /proc, sebuah sistem file pseudo di mana kernel mengekspos berbagai informasi menarik tentang status sistem.
 
 Meskipun namanya /proc, ini berisi informasi lain selain hanya proses (statistik yang dihasilkan oleh sistem, dll).
@@ -242,7 +242,7 @@ Proses-proses direpresentasikan oleh direktori di /proc, dan setiap proses memil
 
 ---
 
-#### Strace and truss
+### Strace and truss
 untuk mengetauhi apa yang proses lakukan, kita dapat menggunakan ***strace*** untuk linux, ataupun ***truss*** untuk freebsd. command tersebut melacak system calls dan signals. ini dapat digunakan untuk debug suatu program ataupun memahami apa yang program tersebut lakukan.
 
 contoh:
@@ -250,7 +250,7 @@ contoh:
 
 ---
 
-#### Runaway processes
+### Runaway processes
 kadang-kadang terjadi sebuah proses yang tidak merespons dengan baik terhadap sistem dan mengonsumsi sumber daya secara berlebihan. Biasanya, proses ini akan mengabaikan prioritas penjadwalan yang telah ditentukan dan menggunakan 100% CPU, yang mengakibatkan proses lain kesulitan mendapatkan akses ke CPU. Akibatnya, sistem menjadi sangat lambat. Proses seperti ini disebut sebagai ***runaway process***.
 
 Untuk menghentikan proses seperti ini, kita bisa menggunakan command kill. Jika proses tidak merespons sinyal TERM, kita bisa menggunakan sinyal KILL untuk memaksa proses berhenti.
@@ -277,13 +277,13 @@ lsof -p pid
 
 ---
 
-#### Periodic processes
+### Periodic processes
 
-##### schedule command
+#### schedule command
 ***Cron*** adalah alat tradisional yang digunakan untuk menjalankan perintah secara otomatis pada waktu yang telah ditentukan. Cron berjalan saat sistem booting dan terus berjalan selama sistem hidup. Cron membaca file konfigurasi yang berisi daftar perintah dan waktu kapan perintah tersebut dijalankan. command line dieksekusi dengan **sh**, jadi hampir semua yang bisa dilakukan di shell bisa dilakukan cron.
 File konfigurasi cron disebut ***crontab*** (singkatan dari "cron table"). Setiap pengguna memiliki crontab yang disimpan di direktori tertentu, misalnya /var/spool/cron di Linux.
 
-##### format crontab
+#### format crontab
 Crontab memiliki lima kolom untuk menentukan waktu eksekusi perintah, yaitu menit, jam, hari dalam bulan, bulan, dan hari dalam minggu. Setelah itu, perintah yang ingin dijalankan ditulis.
 ```bash
 *     *     *     *     *  command untuk dieksekusi
@@ -302,7 +302,7 @@ Perintah crontab digunakan untuk membuat, mengubah, dan menghapus crontab. Beber
 - *crontab -l* untuk melihat crontab.
 - *crontab -r* untuk menghapus crontab.
 
-##### Systemd timer
+#### Systemd timer
 Selain cron, ***systemd timers*** juga dapat digunakan untuk menjadwalkan tugas. Timer systemd lebih fleksibel dan kuat dibandingkan cron. Timer ini diaktifkan oleh **unit service** terkait yang dijalankan sesuai waktu yang ditentukan dalam file timer.
 
 Perintah ***systemctl*** digunakan untuk mengelola unit systemd, termasuk timer. Contoh untuk melihat timer yang aktif:
@@ -323,7 +323,7 @@ Contoh unit timer **logrotate.timer** yang dijadwalkan untuk menjalankan logrota
 ![file](media/image27.png)
 
 filesystem berfungsi untuk mengatur dan mengelola data yang disimpan pada media penyimpanan.
-##### komponen utama:
+#### komponen utama:
 1. namespace: cara sistem memberi nama dan mengatur file serta direktori.
 2. API: panggilan sistem yang memungkinkan perangkat lunak berinteraksi dengan sistem berkas.
 3. security model: mengimplementasikan fitur keamanan untuk melindungi file dan data. Ini bisa mencakup kontrol akses pengguna (siapa yang bisa membaca, menulis, atau mengeksekusi file), enkripsi, dan mekanisme untuk mencegah akses atau manipulasi yang tidak sah.
@@ -335,7 +335,7 @@ kebanyakan filesystem modern mencoba untuk mengimplementasikan fungsionalitas tr
 
 ---
 
-#### Pathnames
+### Pathnames
 
 kata folder hanya bahasa yang digunakan oleh windows dan macOS. ini sama seperti **directori**, yang mana lebih teknis.
 
@@ -343,7 +343,7 @@ daftar directori yang mengarah ke sebuah file dinamakan **pathname**. pathname a
 
 ---
 
-#### Filesystem Mounting and Unmounting
+### Filesystem Mounting and Unmounting
 
 filesystem terdiri dari bagian yang lebih kecil, juga dinamakan "filesystems" yang masing masing terdiri dari 1 direktori beserta subdirektori dan filenya. kita menggunakan istilah **file tree** untuk merujuk pada keseluruhan layout dan menyimpan kata **filesystem** untuk cabang-cabang yang terhubung ke pohon tersebut.
 
@@ -368,9 +368,9 @@ untuk melihat proses yang menjalankan filesystem, kita dapat menggunakan command
 
 ---
 
-#### Organization of the file tree
+### Organization of the file tree
 
-##### root filesystem
+#### root filesystem
 **Root directory** (/) adalah direktori utama dari sistem UNIX yang berisi berkas-berkas dan subdirektori.
 
 subdirektori yang ada dalam root directory mencakup:
@@ -394,10 +394,10 @@ contoh:
 
 ---
 
-#### File types
-kebanyakan implementasi filesystem didefinisikan menjadi 7 tipe file, yakni:
+### File types
+kebanyakan implementasi filesystem didefinisikan menjadi 7 tipe file, yakni:<br>
 ![file tipe](media/image32.png) 
-<br>
+<br><br>
 **1. Regular files**
    File biasa yang berisi data dalam bentuk byte. Sistem file tidak menentukan struktur khusus untuk isi file ini, sehingga bisa berupa berbagai jenis file seperti file teks, data, program yang dapat dijalankan, atau pustaka bersama (shared libraries).
    Contoh: File teks, file biner executable, atau file konfigurasi.
@@ -429,7 +429,7 @@ kebanyakan implementasi filesystem didefinisikan menjadi 7 tipe file, yakni:
      Contoh: /usr/bin sering kali merupakan symbolic link yang menunjuk ke /bin, sehingga software dapat diakses dari direktori berbeda tanpa menggandakan file.
      ![contoh](media/image33.png)
 
-#### File attributes
+### File attributes
 **1. File Permissions**
    ![contoh](media/image34.png)
    Di UNIX/Linux, setiap file memiliki 12 bit mode, yang terdiri dari 9 bit izin dan 3 bit tambahan yang mempengaruhi program yang dapat dieksekusi. Mode ini ditentukan saat file dibuat, dan dapat diubah oleh pemilik file atau superuser dengan menggunakan perintah chmod.
@@ -484,7 +484,7 @@ Output ls untuk file perangkat (device file) akan berbeda. Contohnya:
 
 <br>
 
-##### chmod: change permissions
+#### chmod: change permissions
 Perintah chmod digunakan untuk mengubah mode (izin) file dengan dua cara:
 - **Notasi Oktal:** Menggunakan angka (misalnya, chmod 755 file).
 - **Notasi Mnemonik/simbolik:** Menggunakan simbol untuk menambahkan atau menghapus izin (misalnya, chmod u+w file untuk menambahkan izin tulis untuk pemilik file). <br>
@@ -503,21 +503,21 @@ xamples of chmod's mnemonic syntax:
 
 tips: kita bisa menyalin mode (izin) dari file lain menggunakan opsi --reference. Contohnya, perintah chmod --reference=sourcefile targetfile akan memberikan mode yang sama dari sourcefile ke targetfile.
 
-##### chown: change ownership
+#### chown: change ownership
 Digunakan untuk mengubah pemilik dan grup file. Syntax:
 ```bash
 chown user:group file
 # perintah -R dapat diterapkan untuk mengubah secara rekursif di seluruh isi direktori
 ```
 
-##### chgrp: change group
+#### chgrp: change group
 Digunakan untuk mengubah grup file. Syntax:
 ```bash
 chgrp group file
 # -R juga memungkinkan perubahan dilakukan secara rekursif.
 ```
 
-##### umask: set default permissions
+#### umask: set default permissions
 Perintah umask menentukan izin default yang diterapkan pada file atau direktori yang baru dibuat. Nilai umask adalah sebuah bitmask yang mengurangi izin default (yang biasanya 777 untuk direktori dan 666 untuk file biasa) untuk menentukan izin akhir.
 
 contoh:
@@ -537,16 +537,16 @@ contoh, **umask 027** memberikan izin rwx untuk pemilik, rx untuk grup, dan tida
 
 ---
 
-#### Access Control Lists
+### Access Control Lists
 Access Control Lists (ACLs) adalah cara untuk memperluas model izin tradisional Unix. Dengan ACL, kita bisa memberikan beberapa pemilik pada sebuah file dan memberikan grup pengguna yang berbeda hak akses pada file yang berbeda, yang sulit dilakukan dengan sistem izin Unix standar. ACL memungkinkan penambahan entri kontrol akses untuk menentukan izin akses file dengan lebih spesifik.
 
-##### Komponen ACL:
+#### Komponen ACL:
 - **Access Control Entry (ACE):** Setiap aturan dalam ACL disebut sebagai ACE. Setiap ACE terdiri dari:
   - **User atau Group Specifier:** Menunjukkan siapa yang diberikan izin (misalnya, nama pengguna, nama grup, atau kata kunci khusus seperti "owner" atau "other").
   - **Permission Mask:** Merupakan serangkaian izin yang ditentukan (misalnya, read, write, execute).
   - **Type:** Menentukan apakah izin tersebut diberikan (allow) atau ditolak (deny).
 
-##### Perintah untuk Mengelola ACL:
+#### Perintah untuk Mengelola ACL:
 - **getfacl:** Digunakan untuk menampilkan ACL file. contoh:
   ![getfacl](media/image37.png)
 
@@ -555,7 +555,7 @@ Access Control Lists (ACLs) adalah cara untuk memperluas model izin tradisional 
 setfacl -m [tipe:identitas:hak_akses] [file/direktori]
 # contoh penerapan: setfacl -m u:abdou:rw /etc/passwd
 ```
-##### Jenis ACL:
+#### Jenis ACL:
 - **POSIX ACLs:** Merupakan jenis ACL tradisional yang digunakan pada sistem Unix-like seperti Linux, FreeBSD, dan Solaris. Ini mendukung kontrol akses berdasarkan pemilik file, grup, dan pengguna lain.
   
   entries yang dapat digunakan:
