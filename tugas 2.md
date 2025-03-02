@@ -125,7 +125,7 @@ menghentikan semua proses yang bernama "firefox".
 
 **Perintah *ps* untuk Memantau proses:**
 
-==ps== adalah alat utama yang digunakan oleh administrator sistem untuk memonitor proses yang sedang berjalan di sistem Linux/Unix. walaupun versi dari ps berbeda pada argumen dan tampilan, tetapi informasi yang diberikan esensinya sama.
+**ps** adalah alat utama yang digunakan oleh administrator sistem untuk memonitor proses yang sedang berjalan di sistem Linux/Unix. walaupun versi dari ps berbeda pada argumen dan tampilan, tetapi informasi yang diberikan esensinya sama.
 
 Perintah ini memberikan informasi tentang berbagai atribut penting dari proses yang sedang berjalan, seperti:
 - **PID (Process ID):** ID unik untuk setiap proses.
@@ -137,16 +137,18 @@ Perintah ini memberikan informasi tentang berbagai atribut penting dari proses y
 
 **argumen pada *ps***
 
-- ==ps aux== adalah perintah yang memberikan gambaran umum yang sangat berguna tentang semua proses yang berjalan di sistem:
+- **ps aux** adalah perintah yang memberikan gambaran umum yang sangat berguna tentang semua proses yang berjalan di sistem:
   - a: Menampilkan proses dari semua pengguna.
   - u: Menampilkan informasi lebih detail tentang proses.
   - x: Menampilkan proses yang tidak terkait dengan terminal tertentu.
   ![contoh nyata](media/image15.png)  
 
+  <br>
   penjelasan:
+
   ![penjelasan](media/image16.png)  
 
-- ==ps lax== adalah variasi lain yang memberikan informasi lebih teknis mengenai proses, tetapi sedikit lebih cepat dibandingkan dengan ps aux karena tidak perlu menyelesaikan nama pengguna atau grup.
+- **ps lax** adalah variasi lain yang memberikan informasi lebih teknis mengenai proses, tetapi sedikit lebih cepat dibandingkan dengan ps aux karena tidak perlu menyelesaikan nama pengguna atau grup.
   ![contoh ps lax](media/image17.png) 
 
 - ***grep*** dapat digunakan untuk memfilter output dari perintah ps agar mencari proses tertentu. Contoh untuk mencari proses yang terkait dengan Bash:
@@ -187,7 +189,7 @@ niceness adalah sebuah nilai numerik yang digunakan oleh kernel untuk memberikan
 - Jika ingin menjalankan sebuah task yang memerlukan banyak CPU (misalnya komputasi berat), dan ingin proses tersebut berjalan di background tanpa mempengaruhi kinerja proses lain, kita bisa memberi niceness tinggi.
 - Sebaliknya, jika ingin menjalankan sebuah proses yang sangat penting (misalnya server web atau aplikasi penting), kita bisa memberi niceness rendah untuk memastikan proses tersebut mendapat prioritas tinggi dalam penggunaan CPU.
 
-##### perintah ==nice==:
+##### perintah **nice**:
 digunakan untuk memulai sebuah proses dengan nilai niceness tertentu, yang mengatur prioritas proses saat dimulai.
 
 > sintaks: nice -n nice_val [command]
@@ -199,7 +201,7 @@ contoh:
 ![contoh nice](media/image22.png)
 *perintah ini akan menjalankan ps aux dengan priority paling rendah.*
 
-##### perintah ==renice==:
+##### perintah **renice**:
 digunakan untuk mengubah nilai niceness dari proses yang sedang berjalan.
 
 sintaks:
@@ -301,7 +303,7 @@ Perintah ***systemctl*** digunakan untuk mengelola unit systemd, termasuk timer.
 ```bash
 systemctl list-timers
 ```
-Contoh unit timer ==logrotate.timer== yang dijadwalkan untuk menjalankan logrotate.service setiap tengah malam.
+Contoh unit timer **logrotate.timer** yang dijadwalkan untuk menjalankan logrotate.service setiap tengah malam.
 1. **Mengirim email otomatis:** cron atau systemd timer dapat digunakan untuk mengirimkan email laporan secara otomatis setiap bulan.
 2. **Membersihkan sistem file:** menjalankan skrip setiap hari untuk menghapus file yang sudah lebih dari 30 hari di direktori sampah.
 3. **Rotasi log file:** menjalankan rotasi log file yang membagi file log menjadi beberapa bagian, berdasarkan ukuran atau tanggal.
