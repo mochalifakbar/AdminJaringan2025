@@ -138,11 +138,11 @@ DNS atau Domain Name System adalah sistem yang digunakan untuk menerjemahkan nam
 **2. setting konfigurasi (untuk domain windows.ku) pada file-file berikut**<br>
 ![bind9 conf](media/image71.png)<br><br>
 
-- pada **`/etc/bind/named.conf`**:
+- pada **`/etc/bind/named.conf`**:<br>
     ![bind9 conf](media/image72.png)<br><br>
     fungsi: File named.conf.internal-zones ditambahkan khusus untuk jaringan internal.
 
-- pada **`/etc/bind/named.conf.options`**:
+- pada **`/etc/bind/named.conf.options`**:<br>
     ![bind9 conf](media/image73.png)<br><br>
     Fungsi: Mendefinisikan pengaturan global untuk server DNS.
     - **acl internal-network:** Mendefinisikan jaringan 192.168.1.0/24 sebagai "jaringan internal"
@@ -151,7 +151,7 @@ DNS atau Domain Name System adalah sistem yang digunakan untuk menerjemahkan nam
     - **allow-transfer:** Hanya mengizinkan transfer zona dari localhost (keamanan)
     - **recursion yes:** Mengizinkan server mencari jawaban di server DNS lain jika tidak memiliki jawabannya
   
-- pada **`/etc/bind/named.conf.internal-zones`**:
+- pada **`/etc/bind/named.conf.internal-zones`**:<br>
     ![bind9 conf](media/image74.png)<br><br>
     fungsi: Mendefinisikan zona DNS untuk domain "ku" dan zona reverse DNS.
     - **zone "ku":** Mendefinisikan zona forward yang akan menerjemahkan nama domain "ku" dan subdomain-nya menjadi alamat IP
@@ -160,7 +160,7 @@ DNS atau Domain Name System adalah sistem yang digunakan untuk menerjemahkan nam
     - **allow-update:** Tidak mengizinkan pembaruan dinamis (keamanan)
     - **zone "1.168.192.in-addr.arpa":** Zona reverse yang menerjemahkan alamat IP menjadi nama domain
   
-- pada **`/etc/bind/ku.lan`**:
+- pada **`/etc/bind/ku.lan`**:<br>
     ![bind9 conf](media/image75.png)<br><br>
     fungsi: Mendefinisikan detail zona "ku", termasuk catatan DNS.
     **$TTL:** Time To Live - berapa lama record boleh di-cache (86400 detik = 1 hari)
@@ -178,7 +178,7 @@ DNS atau Domain Name System adalah sistem yang digunakan untuk menerjemahkan nam
       - **ns IN A:** IP untuk ns.ku
       - **windows IN A:** IP untuk windows.ku (192.168.1.8)
   
-- pada **`/etc/bind/1.168.192.db`**:
+- pada **`/etc/bind/1.168.192.db`**:<br>
     ![bind9 conf](media/image76.png)<br><br>
     fungsi: Menerjemahkan alamat IP menjadi nama domain (reverse lookup).
     - **8 IN PTR windows.ku.:** Mengarahkan IP 192.168.1.8 ke nama domain windows.ku
