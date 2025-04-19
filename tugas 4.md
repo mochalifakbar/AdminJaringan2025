@@ -196,15 +196,10 @@ DNS atau Domain Name System adalah sistem yang digunakan untuk menerjemahkan nam
     Izinkan koneksi masuk ke port 53 (DNS) via:
     - TCP (`-p tcp`)
     - UDP (`-p udp`)
-
     Port 53 dipakai oleh DNS, dan biasanya pakai UDP, tapi juga bisa pakai TCP untuk transfer data besar (misalnya zone transfer).
-
     Artinya: Server ini bisa menerima permintaan DNS.
-
     NAT: Mengatur IP masquerading untuk trafik keluar lewat interface enp0s8.
-
     Artinya: Semua trafik dari LAN (yang diforward) akan disamarkan menggunakan IP publik si enp0s8.
-
     Hasil:
     ![bind9 conf](media/image81.png)<br><br>
 
