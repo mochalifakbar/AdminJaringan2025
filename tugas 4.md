@@ -135,7 +135,7 @@ DNS atau Domain Name System adalah sistem yang digunakan untuk menerjemahkan nam
 **1. install bind9**<br>
 ![bind9 install](media/image70.png)<br><br>
 
-**2. setting konfigurasi (untuk domain windows.ku) pada file-file berikut**<br>
+**2. setting konfigurasi (untuk domain kelompok07.com) pada file-file berikut**<br>
 ![bind9 conf](media/image71.png)<br><br>
 
 - pada **`/etc/bind/named.conf`**:<br>
@@ -145,7 +145,7 @@ DNS atau Domain Name System adalah sistem yang digunakan untuk menerjemahkan nam
 - pada **`/etc/bind/named.conf.options`**:<br>
     ![bind9 conf](media/image73.png)<br><br>
     Fungsi: Mendefinisikan pengaturan global untuk server DNS.
-    - **acl internal-network:** Mendefinisikan jaringan 192.168.1.0/24 sebagai "jaringan internal"
+    - **acl internal-network:** Mendefinisikan jaringan 192.168.200.0/24 sebagai "jaringan internal"
     - **directory:** Menentukan lokasi cache DNS
     - **allow-query:** Mengizinkan komputer dari localhost dan jaringan internal untuk mengirim kueri DNS
     - **allow-transfer:** Hanya mengizinkan transfer zona dari localhost (keamanan)
@@ -153,40 +153,58 @@ DNS atau Domain Name System adalah sistem yang digunakan untuk menerjemahkan nam
   
 - pada **`/etc/bind/named.conf.internal-zones`**:<br>
     ![bind9 conf](media/image74.png)<br><br>
-    fungsi: Mendefinisikan zona DNS untuk domain "ku" dan zona reverse DNS.
-    - **zone "ku":** Mendefinisikan zona forward yang akan menerjemahkan nama domain "ku" dan subdomain-nya menjadi alamat IP
+    fungsi: Mendefinisikan zona DNS untuk domain "com" dan zona reverse DNS.
+    - **zone "com":** Mendefinisikan zona forward yang akan menerjemahkan nama domain "com" dan subdomain-nya menjadi alamat IP
     - **type master:** Server ini adalah sumber primer untuk zona ini
     - **file:** Lokasi file yang berisi detail zona
     - **allow-update:** Tidak mengizinkan pembaruan dinamis (keamanan)
-    - **zone "1.168.192.in-addr.arpa":** Zona reverse yang menerjemahkan alamat IP menjadi nama domain
+    - **zone "200.168.192.in-addr.arpa":** Zona reverse yang menerjemahkan alamat IP menjadi nama domain
   
-- pada **`/etc/bind/ku.lan`**:<br>
+- pada **`/etc/bind/com.lan`**:<br>
     ![bind9 conf](media/image75.png)<br><br>
-    fungsi: Mendefinisikan detail zona "ku", termasuk catatan DNS.
+    fungsi: Mendefinisikan detail zona "com", termasuk catatan DNS.
     **$TTL:** Time To Live - berapa lama record boleh di-cache (86400 detik = 1 hari)
    **SOA:** Start of Authority - informasi otoritatif tentang zona:
-    - **ns.ku.:** Server nama utama untuk zona
-    - **admin.ku.:** Email admin (@ diganti dengan .)
+    - **ns.com.:** Server nama utama untuk zona
+    - **admin.com.:** Email admin (@ diganti dengan .)
     - **Serial:** Nomor versi konfigurasi (biasanya format tanggal YYYYMMDDNN)
    - **Refresh:** Berapa sering server sekunder harus memeriksa pembaruan (3600 detik)
     - **Retry:** Berapa lama menunggu jika pembaruan gagal (1800 detik)
    - **Expire:** Berapa lama data dianggap valid jika server utama tidak tersedia (604800 detik)
     - **Minimum TTL:** Default TTL minimum (86400 detik)
-    - **NS:** Name Server record - mendefinisikan ns.ku sebagai server nama untuk zona
+    - **NS:** Name Server record - mendefinisikan ns.com sebagai server nama untuk zona
     - **A:** Address record - memberikan alamat IP untuk nama domain:
-      - **@ IN A:** IP untuk domain dasar (ku)
-      - **ns IN A:** IP untuk ns.ku
-      - **windows IN A:** IP untuk windows.ku (192.168.1.8)
+      - **@ IN A:** IP untuk domain dasar (com)
+      - **ns IN A:** IP untuk ns.com
+      - **kelompok07 IN A:** IP untuk windows.com (192.168.200.2)
   
-- pada **`/etc/bind/1.168.192.db`**:<br>
+- pada **`/etc/bind/200.168.192.db`**:<br>
     ![bind9 conf](media/image76.png)<br><br>
     fungsi: Menerjemahkan alamat IP menjadi nama domain (reverse lookup).
-    - **8 IN PTR windows.ku.:** Mengarahkan IP 192.168.1.8 ke nama domain windows.ku
+    - **8 IN PTR windows.com.:** Mengarahkan IP 192.168.200.2 ke nama domain windows.com
 
-**3. setting resolver agar menggunakan dns lokal**<br>
+**3. setting resolver agar menggunakan dns server debian student(192.168.200.2)**<br>
     ![bind9 conf](media/image77.png)<br><br>
-    setting ini dilakukan karena domain windows.ku hanya dikenali oleh server dns lokal.
+    setting ini dilakukan untuk mengambil dns dari debian student.
 
 **4. hasil**<br>
     ![bind9 hasil](media/image78.png)<br><br>
-    ![bind9 hasil](media/image79.png)<br><br>
+
+**4. setting iptables**<br>
+    ![iptables conf](media/image79.png)<br><br>
+    ![iptables conf](media/image80.png)<br><br>
+    Izinkan koneksi masuk ke port 53 (DNS) via:
+    - TCP (`-p tcp`)
+    - UDP (`-p udp`)
+
+    Port 53 dipakai oleh DNS, dan biasanya pakai UDP, tapi juga bisa pakai TCP untuk transfer data besar (misalnya zone transfer).
+
+    Artinya: Server ini bisa menerima permintaan DNS.
+
+    NAT: Mengatur IP masquerading untuk trafik keluar lewat interface enp0s8.
+
+    Artinya: Semua trafik dari LAN (yang diforward) akan disamarkan menggunakan IP publik si enp0s8.
+
+    Hasil:
+    ![bind9 conf](media/image81.png)<br><br>
+
